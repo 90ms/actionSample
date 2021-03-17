@@ -93,8 +93,8 @@ jobs:
           # Your service account JSON GitHub secret
           serviceAccountJsonPlainText: ${{ secrets.GITHUB_TOKEN }}
           # Your package name
-          packageName: '[beeasy.a90ms.actionsample]'
-          aabFilePath: app/build/outputs/apk/debug
+          packageName: 'beeasy.a90ms.actionsample'
+          apkFilePath: app/build/outputs/apk/debug/app-debug.apk
       - name: Sharing on slack
         uses: rtCamp/action-slack-notify@v2.1.0
         env:
