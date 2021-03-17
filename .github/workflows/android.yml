@@ -44,6 +44,7 @@ jobs:
           status: ${{job.status}}
           author_name: <github-action>
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
           SLACK_CHANNEL: github-action
           SLACK_COLOR: '#FF2D00'
           SLACK_USERNAME: 'Github Action'
