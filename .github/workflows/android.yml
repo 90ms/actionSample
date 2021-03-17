@@ -37,7 +37,7 @@ jobs:
 
 
       # Send Slack Notify Message1
-      - name: Slack Notify Message
+      - name: 5. Slack Notify Message
 #        if: failure()
         uses: 8398a7/action-slack@v2.6.0
         env:
@@ -61,20 +61,6 @@ jobs:
 #          SLACK_WEBHOOK_URL: ${{ secrets.ANDROID_BUILD }}
 #          SLACK_FOOTER: 개발버전 입니다.
 
-      # Send Slack File Upload
-      slack_upload_job:
-        runs-on: ubuntu-latest
-        name: Send Slack File Upload
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v1
-
-          - name: Upload to slack step
-            uses: adrey/slack-file-upload-action@master
-            with:
-              token: ${{ secrets.SLACK_TOKEN }}
-              path: app/build/outputs/apk/debug
-              channel: github-action
 
       #https://hooks:
       #  slack:
@@ -91,8 +77,23 @@ jobs:
 #          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
 
       # Upload Debug APK
-      - name: 5. Upload Debug APK
+      - name: 6. Upload Debug APK
         uses: actions/upload-artifact@v1
         with:
           name: app
           path: app/build/outputs/apk/debug
+
+      # Send Slack File Upload
+      slack_upload_job:
+        runs-on: ubuntu-latest
+        name: 7. Send Slack File Upload
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+
+          - name: Upload to slack step
+            uses: adrey/slack-file-upload-action@master
+            with:
+              token: ${{ secrets.SLACK_TOKEN }}
+              path: app/build/outputs/apk/debug
+              channel: github-action
