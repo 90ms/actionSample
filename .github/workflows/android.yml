@@ -31,9 +31,14 @@ jobs:
       - name: 3. Run Unit Tests
         run: ./gradlew testDebugUnitTest
 
-      # Build debug APK
+        # Build debug APK
       - name: 4. Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
+
+        # Build release APK
+      - name: 4. Build debug APK
+        run: bash ./gradlew assembleRelease --stacktrace
+
 
 #      # Send Slack Notify Message
 #      - name: Slack Notify Message
@@ -48,9 +53,16 @@ jobs:
 #          SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
 #          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
-      # Upload APK
-      - name: 5. Upload APK
+      # Upload Debug APK
+      - name: 5. Upload Debug APK
         uses: actions/upload-artifact@v1
         with:
           name: app
           path: app/build/outputs/apk/debug
+
+      # Upload Release APK
+      - name: 6. Upload Release APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/release
