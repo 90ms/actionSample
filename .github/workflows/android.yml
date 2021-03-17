@@ -91,7 +91,7 @@ jobs:
         uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
         with:
           # Your service account JSON GitHub secret
-          serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
+          serviceAccountJsonPlainText: ${{ secrets.GITHUB_TOKEN }}
           # Your package name
           packageName: '[beeasy.a90ms.actionsample]'
           aabFilePath: app/build/outputs/apk/debug
