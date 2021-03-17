@@ -38,7 +38,7 @@ jobs:
 
       # Send Slack Notify Message1
       - name: Slack Notify Message
-        if: failure()
+#        if: failure()
         uses: 8398a7/action-slack@v2.6.0
         env:
           SLACK_CHANNEL: github-action
@@ -48,6 +48,33 @@ jobs:
           SLACK_TITLE: Build Failure - ${{ github.event.pull_request.title }}
           SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
+#      - name: Slack Notification
+#        uses: rtCamp/action-slack-notify@master
+#        env:
+#          SLACK_CHANNEL: android-build
+#          SLACK_COLOR: '#DD0000'
+#          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+#          SLACK_MESSAGE: '${{ env.DEVELOP_VERSION }} 개발 빌드가 완료되었습니다'
+#          SLACK_TITLE: '${{ env.DEVELOP_VERSION }}  개발버전 입니다.'
+#          SLACK_USERNAME: 개발 개발
+#          SLACK_WEBHOOK_URL: ${{ secrets.ANDROID_BUILD }}
+#          SLACK_FOOTER: 개발버전 입니다.
+
+      # Send Slack File Upload
+      slack_upload_job:
+        runs-on: ubuntu-latest
+        name: Send Slack File Upload
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v1
+
+          - name: Upload to slack step
+            uses: adrey/slack-file-upload-action@master
+            with:
+              token: ${{ secrets.SLACK_TOKEN }}
+              path: app/build/outputs/apk/debug
+              channel: github-action
 
       #https://hooks:
       #  slack:
