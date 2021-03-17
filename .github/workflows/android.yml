@@ -40,6 +40,9 @@ jobs:
       - name: 5. Slack Notify Message
 #        if: failure()
         uses: 8398a7/action-slack@v2.6.0
+        with:
+          status: ${{job.status}}
+          author_name: <github-action>
         env:
           SLACK_CHANNEL: github-action
           SLACK_COLOR: '#FF2D00'
