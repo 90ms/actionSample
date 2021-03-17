@@ -27,13 +27,9 @@ jobs:
       - name: Run Kotlin Linter
         run: ./gradlew ktlintDebugCheck
 
-      # Check the code with Android linter
-      - name: Run Android Linter
-        run: ./gradlew lintDebug
-
        # Yun your unit tests
       - name: Run Unit Tests
-        run: ./gradlew testStagingDebugUnitTest
+        run: ./gradlew testDebugUnitTest
 
       # Build apk
       - name: Build debug APK
