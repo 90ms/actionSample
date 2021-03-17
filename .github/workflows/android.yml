@@ -40,7 +40,7 @@ jobs:
         run: bash ./gradlew assembleRelease --stacktrace
 
 
-#      # Send Slack Notify Message
+#      # Send Slack Notify Message1
 #      - name: Slack Notify Message
 #        if: failure()
 #        uses: rtCamp/action-slack-notify@v2.1.0
@@ -52,6 +52,20 @@ jobs:
 #          SLACK_TITLE: Build Failure - ${{ github.event.pull_request.title }}
 #          SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
 #          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      #https://hooks:
+      #  slack:
+      #   com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
+
+      # Send Slcak Notify Message2
+      - name: action-slack
+        uses: 8398a7/action-slack@v2.6.0
+        with:
+          status: ${{job.status}}
+          author_name: <슬랙 챗봇 이름>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
 
       # Upload Debug APK
       - name: 5. Upload Debug APK
