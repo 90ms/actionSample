@@ -39,12 +39,12 @@ jobs:
       - name: 5. Send Slcak Notify Message
         # if: failure()
         uses: 8398a7/action-slack@v2.6.0
-          with:
-            status: ${{job.status}}
-              author_name: <github-action>
-            env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
-              SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        with:
+          status: ${{job.status}}
+          author_name: <github-action>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
       # https://hooks:slack:com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
 
       # Upload Debug APK
