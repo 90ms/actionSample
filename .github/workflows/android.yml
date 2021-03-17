@@ -35,37 +35,33 @@ jobs:
       - name: 4. Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
 
-        # Build release APK
-      - name: 4. Build debug APK
-        run: bash ./gradlew assembleRelease --stacktrace
 
-
-#      # Send Slack Notify Message1
-#      - name: Slack Notify Message
-#        if: failure()
-#        uses: rtCamp/action-slack-notify@v2.1.0
-#        env:
-#          SLACK_CHANNEL: group-dev
-#          SLACK_COLOR: '#FF2D00'
-#          SLACK_USERNAME: 'Github Action'
-#          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-#          SLACK_TITLE: Build Failure - ${{ github.event.pull_request.title }}
-#          SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
-#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+      # Send Slack Notify Message1
+      - name: Slack Notify Message
+        if: failure()
+        uses: 8398a7/action-slack@v2.6.0
+        env:
+          SLACK_CHANNEL: github-action
+          SLACK_COLOR: '#FF2D00'
+          SLACK_USERNAME: 'Github Action'
+          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          SLACK_TITLE: Build Failure - ${{ github.event.pull_request.title }}
+          SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
 
       #https://hooks:
       #  slack:
       #   com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
 
-      # Send Slcak Notify Message2
-      - name: action-slack
-        uses: 8398a7/action-slack@v2.6.0
-        with:
-          status: ${{job.status}}
-          author_name: <github-action>
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+#      # Send Slcak Notify Message2
+#      - name: action-slack
+#        uses: 8398a7/action-slack@v2.6.0
+#        with:
+#          status: ${{job.status}}
+#          author_name: <github-action>
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+#          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
 
       # Upload Debug APK
       - name: 5. Upload Debug APK
@@ -73,10 +69,3 @@ jobs:
         with:
           name: app
           path: app/build/outputs/apk/debug
-
-      # Upload Release APK
-      - name: 6. Upload Release APK
-        uses: actions/upload-artifact@v1
-        with:
-          name: app
-          path: app/build/outputs/apk/release
