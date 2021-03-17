@@ -88,13 +88,13 @@ jobs:
           name: apk
       - name: Uplaoding to IAS
           id: ias
-      uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
-      with:
-        # Your service account JSON GitHub secret
-        serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
-        # Your package name
-        packageName: '[beeasy.a90ms.actionsample]'
-        aabFilePath: app/build/outputs/apk/debug
+          uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
+          with:
+            # Your service account JSON GitHub secret
+            serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
+            # Your package name
+            packageName: '[beeasy.a90ms.actionsample]'
+            aabFilePath: app/build/outputs/apk/debug
       - name: Sharing on slack
         uses: rtCamp/action-slack-notify@v2.1.0
         env:
