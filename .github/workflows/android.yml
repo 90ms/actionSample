@@ -11,32 +11,45 @@ on:
 
 jobs:
   apk:
-    name: Generate APK
+    name: actionSample CI
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v1
 
       # Setup JDK
-      - name: set up JDK 1.8
+      - name: 1. set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
 
-      # Check the code with ktlint, you can remove this job if you don't use ktlint
-      - name: Run Kotlin Linter
+      # Check the code with ktlint
+      - name: 2. Check the code with ktlint
         run: ./gradlew ktlintDebugCheck
 
-       # Yun your unit tests
-      - name: Run Unit Tests
+       # Run Unit Tests
+      - name: 3. Run Unit Tests
         run: ./gradlew testDebugUnitTest
 
-      # Build apk
-      - name: Build debug APK
+      # Build debug APK
+      - name: 4. Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
 
-      # Upload apk
-      - name: Upload APK
+#      # Send Slack Notify Message
+#      - name: Slack Notify Message
+#        if: failure()
+#        uses: rtCamp/action-slack-notify@v2.1.0
+#        env:
+#          SLACK_CHANNEL: group-dev
+#          SLACK_COLOR: '#FF2D00'
+#          SLACK_USERNAME: 'Github Action'
+#          SLACK_ICON: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+#          SLACK_TITLE: Build Failure - ${{ github.event.pull_request.title }}
+#          SLACK_MESSAGE: PR Url - ${{ github.event.pull_request.url }}
+#          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
+      # Upload APK
+      - name: 5. Upload APK
         uses: actions/upload-artifact@v1
         with:
           name: app
