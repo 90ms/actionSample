@@ -83,17 +83,17 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug
 
-      # Send Slack File Upload
-      slack_upload_job:
-        runs-on: ubuntu-latest
-        name: 7. Send Slack File Upload
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v1
-
-          - name: Upload to slack step
-            uses: adrey/slack-file-upload-action@master
-            with:
-              token: ${{ secrets.SLACK_TOKEN }}
-              path: app/build/outputs/apk/debug
-              channel: github-action
+#      # Send Slack File Upload
+#      slack_upload_job:
+#        runs-on: ubuntu-latest
+#        name: 7. Send Slack File Upload
+#        steps:
+#          - name: Checkout
+#            uses: actions/checkout@v1
+#
+#          - name: Upload to slack step
+#            uses: adrey/slack-file-upload-action@master
+#            with:
+#              token: ${{ secrets.SLACK_TOKEN }}
+#              path: app/build/outputs/apk/debug
+#              channel: github-action
