@@ -25,11 +25,11 @@ jobs:
 
       # Check the code with ktlint, you can remove this job if you don't use ktlint
       - name: Run Kotlin Linter
-        run: ./gradlew ktlintStagingDebugCheck
+        run: ./gradlew ktlintDebugCheck
 
       # Check the code with Android linter
        - name: Run Android Linter
-        run: ./gradlew lintStagingDebug
+        run: ./gradlew lintDebug
 
        # Yun your unit tests
       - name: Run Unit Tests
