@@ -101,9 +101,9 @@ jobs:
           # Your slack webhook GitHub secret
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
           # Slack channel where you want to notify
-          SLACK_CHANNEL: [your-channel]
-          SLACK_USERNAME: "JARVIS"
-          SLACK_TITLE: "Internal testing build"
+          SLACK_CHANNEL: [github-action]
+          SLACK_USERNAME: "90MS"
+          SLACK_TITLE: "APK 파일 업로드"
           SLACK_MESSAGE: ${{ steps.ias.outputs.downloadUrl }}
 
 #      # Send Slack File Upload
