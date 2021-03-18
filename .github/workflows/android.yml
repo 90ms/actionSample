@@ -66,22 +66,22 @@ jobs:
           name: app
       - name: Uplaoding to IAS
         id: ias
-      uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
-      with:
-        # Your service account JSON GitHub secret
-        # serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
+        uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
+        with:
+          # Your service account JSON GitHub secret
+          # serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
           # Your package name
           packageName: 'beeasy.a90ms.actionsample'
           apkFilePath: 'app/build/outputs/apk/debug/app-debug.apk'
-        - name: Sharing on slack
-          uses: rtCamp/action-slack-notify@v2.1.0
-          env:
-            # Your slack webhook GitHub secret
-            SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-            # Slack channel where you want to notify
-            SLACK_CHANNEL: github-action
-            SLACK_USERNAME: "90MS"
-            SLACK_TITLE: "file download"
-            SLACK_MESSAGE: ${{ steps.ias.outputs.downloadUrl }}
+      - name: Sharing on slack
+        uses: rtCamp/action-slack-notify@v2.1.0
+        env:
+          # Your slack webhook GitHub secret
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # Slack channel where you want to notify
+          SLACK_CHANNEL: github-action
+          SLACK_USERNAME: "90MS"
+          SLACK_TITLE: "file download"
+          SLACK_MESSAGE: ${{ steps.ias.outputs.downloadUrl }}
 
       - name: END
