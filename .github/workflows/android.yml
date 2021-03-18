@@ -35,8 +35,15 @@ jobs:
       - name: 4. Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
 
+      # Upload Debug APK
+      - name: 5. Upload Debug APK
+        uses: actions/upload-artifact@v1
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
+
         # Send Slcak Notify Message
-      - name: 5. Send Slcak Notify Message
+      - name: 6. Send Slcak Notify Message
         # if: failure()
         uses: 8398a7/action-slack@v2.6.0
         with:
@@ -47,38 +54,4 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
       # https://hooks:slack:com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
 
-      # Upload Debug APK
-      - name: 6. Upload Debug APK
-        uses: actions/upload-artifact@v1
-        with:
-          name: app
-          path: app/build/outputs/apk/debug/app-debug.apk
-
-  slack_upload_job:
-    runs-on: ubuntu-latest
-    name: Upload test file
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - run: echo "APK file " > app-debug.apk
-      - name: Upload to slack step
-        uses: adrey/slack-file-upload-action@master
-        with:
-          token: ${{ secrets.SLACK_TOKEN }}
-          path: app-debug.apk
-          channel: app/build/outputs/apk/debug/app-debug.apk
-
-#      # Send Slack File Upload
-#      slack_upload_job:
-#        runs-on: ubuntu-latest
-#        name: 7. Send Slack File Upload
-#        steps:
-#          - name: Checkout
-#            uses: actions/checkout@v1
-#
-#          - name: Upload to slack step
-#            uses: adrey/slack-file-upload-action@master
-#            with:
-#              token: ${{ secrets.SLACK_TOKEN }}
-#              path: app/build/outputs/apk/debug
-#              channel: github-action
+      - name: END
