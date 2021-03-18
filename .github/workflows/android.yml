@@ -107,8 +107,8 @@ jobs:
       - name: Uploading build
         uses: actions/upload-artifact@v2
         with:
-          name: apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: bundle
+          path: app/build/outputs/bundle/release/app-release.aab
 
 
   upload_to_internal_app_sharing:
@@ -119,7 +119,7 @@ jobs:
       - name: Downloading build
         uses: actions/download-artifact@v2
         with:
-          name: app
+          name: bundle
       - name: Uplaoding to IAS
         id: ias
         uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
@@ -128,7 +128,7 @@ jobs:
           # serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
           # Your package name
           packageName: 'beeasy.a90ms.actionsample'
-          apkFilePath: 'app/build/outputs/apk/debug/app-debug.apk'
+          apkFilePath: 'app/build/outputs/bundle/release/app-release.aab'
       - name: Sharing on slack
         uses: rtCamp/action-slack-notify@v2.1.0
         env:
