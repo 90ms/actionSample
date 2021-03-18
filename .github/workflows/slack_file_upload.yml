@@ -20,12 +20,12 @@ jobs:
           java-version: 1.8
       - name: Runing build command
         # Run your own gradle command to generate build.
-        run: ./gradlew bundleRelease
+        run: ./gradlew assembleDebug
       - name: Uploading build
         uses: actions/upload-artifact@v2
         with:
-          name: bundle
-          path: app/build/outputs/bundle/release/app-debug.apk
+          name: apk
+          path: app/build/outputs/apk/debug/app-debug.apk
 
 
   upload_to_internal_app_sharing:
@@ -36,7 +36,7 @@ jobs:
       - name: Downloading build
         uses: actions/download-artifact@v2
         with:
-          name: bundle
+          name: app
       - name: Uplaoding to IAS
         id: ias
       	uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
