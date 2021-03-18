@@ -42,46 +42,47 @@ jobs:
           name: app
           path: app/build/outputs/apk/debug/app-debug.apk
 
-      upload_to_internal_app_sharing:
-        name: Uploading build to IAS
-        needs: apk
-        runs-on: ubuntu-latest
-        steps:
-          - name: Downloading build
-            uses: actions/download-artifact@v2
-            with:
-              name: app
-          - name: Uplaoding to IAS
-            id: ias
-            uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
-            with:
-              # Your service account JSON GitHub secret
-              # serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
-              # Your package name
-              packageName: 'beeasy.a90ms.actionsample'
-              apkFilePath: 'app/build/outputs/apk/debug/app-debug.apk'
-          - name: Sharing on slack
-            uses: rtCamp/action-slack-notify@v2.1.0
-            env:
-              # Your slack webhook GitHub secret
-              SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-              # Slack channel where you want to notify
-              SLACK_CHANNEL: github-action
-              SLACK_USERNAME: "90MS"
-              SLACK_TITLE: "file download"
-              SLACK_MESSAGE: ${{ steps.ias.outputs.downloadUrl }}
+      # Send Slcak Notify Message
+      - name: 6. Send Slcak Notify Message
+        # 실패할때만 호출
+        # if: failure()
+        uses: 8398a7/action-slack@v2.6.0
+        with:
+          status: ${{job.status}}
+          author_name: <github-action>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+          # https://hooks:slack:com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
 
-        # Send Slcak Notify Message
-        - name: 6. Send Slcak Notify Message
-          # 실패할때만 호출
-          # if: failure()
-          uses: 8398a7/action-slack@v2.6.0
-          with:
-            status: ${{job.status}}
-            author_name: <github-action>
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
-            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
-              # https://hooks:slack:com/services/T01S79TDE9E/B01RANBUJ0N/OhfdJ31KTYQ5ooWHWAxfwJeW:
+      - name: END
 
-          - name: END
+
+  upload_to_internal_app_sharing:
+    name: Uploading build to IAS
+    needs: apk
+    runs-on: ubuntu-latest
+    steps:
+      - name: Downloading build
+        uses: actions/download-artifact@v2
+        with:
+          name: app
+      - name: Uplaoding to IAS
+        id: ias
+        uses: sagar-viradiya/internal-app-sharing-action@v1.1.0
+        with:
+          # Your service account JSON GitHub secret
+          # serviceAccountJsonPlainText: ${{ secrets.[your-github-service-acc-json-secret] }}
+          # Your package name
+          packageName: 'beeasy.a90ms.actionsample'
+          apkFilePath: 'app/build/outputs/apk/debug/app-debug.apk'
+      - name: Sharing on slack
+        uses: rtCamp/action-slack-notify@v2.1.0
+        env:
+          # Your slack webhook GitHub secret
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          # Slack channel where you want to notify
+          SLACK_CHANNEL: github-action
+          SLACK_USERNAME: "90MS"
+          SLACK_TITLE: "file download"
+          SLACK_MESSAGE: ${{ steps.ias.outputs.downloadUrl }}
